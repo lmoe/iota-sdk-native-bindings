@@ -97,7 +97,7 @@ jobs:
         run: cargo build --release        
 
       - name: List files in the repository
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        if: ${{ startsWith(matrix.os, 'ubuntu') }} ||   matrix.os == 'macos-latest'
         run: |
           ls -lah ${{ github.workspace }}/target/release
 
