@@ -97,11 +97,15 @@ jobs:
 
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/target/release
           
       - name: Upload package to Github release
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: "*.tgz"
+          files: | 
+            "target/release/*iota_sdk_native.so"
+            "target/release/*iota_sdk_native.dll"
+            "target/release/*iota_sdk_native.dylib"
+          fail_on_unmatched_files: false
           tag_name: ${{ steps.prepare_release.outputs.tag_name }}
