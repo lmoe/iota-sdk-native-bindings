@@ -27,7 +27,7 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         if: matrix.os == 'macos-latest'
         with:
-          xcode-version: '14.3'
+          xcode-version: '14.2'
 
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
