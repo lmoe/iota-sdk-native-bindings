@@ -13,8 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest]
-        #os: [ubuntu-20.04, windows-2022]
+        os: [macos-13, ubuntu-20.04, windows-2022]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +24,7 @@ jobs:
 
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-13'
         with:
           xcode-version: '14.2'
 
@@ -48,11 +47,11 @@ jobs:
 
       - name: Set deployment target (macOS)
         run: echo "MACOSX_DEPLOYMENT_TARGET=10.14" >> $GITHUB_ENV
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-13'
 
       - name: Get current date
         run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-        if: matrix.os == 'macos-latest' || ${{ startsWith(matrix.os, 'ubuntu') }}
+        if: matrix.os == 'macos-13' || ${{ startsWith(matrix.os, 'ubuntu') }}
 
       - name: Get current date
         if: matrix.os == 'windows-2022'
@@ -97,7 +96,7 @@ jobs:
         run: cargo build --release        
 
       - name: List files in the repository
-        if: ${{ startsWith(matrix.os, 'ubuntu') }} ||   matrix.os == 'macos-latest'
+        if: ${{ startsWith(matrix.os, 'ubuntu') }} ||   matrix.os == 'macos-13'
         run: |
           ls -lah ${{ github.workspace }}/target/release
 
