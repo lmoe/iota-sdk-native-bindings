@@ -85,13 +85,13 @@ jobs:
           git apply --ignore-space-change --ignore-whitespace ${{ github.workspace }}/.patches/macos_cargo_toml.patch
           cat Cargo.toml
           cargo patch
+
       - name: Cargo build
-        run: cargo build --release
-        
+        run: cargo build --release        
 
       - name: Upload package to Github release
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: *.tgz
+          files: "*.tgz"
           tag_name: ${{ steps.prepare_release.outputs.tag_name }}
