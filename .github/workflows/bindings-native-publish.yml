@@ -96,6 +96,12 @@ jobs:
         run: cargo build --release        
 
       - name: List files in the repository
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: |
+          ls -lah ${{ github.workspace }}/target/release
+
+      - name: List files in the repository
+        if: matrix.os == 'windows-2022'
         run: |
           ls ${{ github.workspace }}/target/release
           
@@ -104,8 +110,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: | 
-            "target/release/*iota_sdk_native.so"
-            "target/release/*iota_sdk_native.dll"
-            "target/release/*iota_sdk_native.dylib"
+            target/release/libiota_sdk_native.so
+            target/release/iota_sdk_native.dll
+            target/release/libiota_sdk_native.dylib
           fail_on_unmatched_files: false
           tag_name: ${{ steps.prepare_release.outputs.tag_name }}
