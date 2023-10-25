@@ -1,6 +1,6 @@
 name: Native prebuilt publish
 
-on: workflow_dispatch
+on: release
 
 env:
   CARGO_INCREMENTAL: 0
