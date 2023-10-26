@@ -94,24 +94,14 @@ jobs:
 
       - name: Cargo build
         run: cargo build --release        
-
-      - name: List files in the repository
-        if: ${{ startsWith(matrix.os, 'ubuntu') }} ||   matrix.os == 'macos-13'
-        run: |
-          ls -lah ${{ github.workspace }}/target/release
-
-      - name: List files in the repository
-        if: matrix.os == 'windows-2022'
-        run: |
-          ls ${{ github.workspace }}/target/release
           
       - name: Upload package to Github release
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: | 
-            target/release/libiota_sdk_native.so
-            target/release/iota_sdk_native.dll
-            target/release/libiota_sdk_native.dylib
+            target/release/libiota_sdk.so
+            target/release/iota_sdk.dll
+            target/release/libiota_sdk.dylib
           fail_on_unmatched_files: false
           tag_name: ${{ steps.prepare_release.outputs.tag_name }}
